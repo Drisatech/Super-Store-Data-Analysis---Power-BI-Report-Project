@@ -295,7 +295,10 @@ This project demonstrates end-to-end business intelligence capabilities:
 
 For questions or collaboration:
 
-Name: Idris Aliyu
+Name: Engr. Idris Aliyu
+
 Role: Data Analyst / Engineer
+
 Email: drisatech@gmail.com
+
 GitHub: https://github.com/Drisatech

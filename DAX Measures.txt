@@ -1,0 +1,43 @@
+DAX Measures used for the Super Store Power BI Data Analysis Project for DNS.
+
+
+Total Sales = SUM( Orders[Sales] )
+
+Total Profit = SUM( Orders[Profit] )
+
+Order Count = DISTINCTCOUNT( Orders[Order ID] )
+
+Average Discount = AVERAGE( Orders[Discount] )
+
+Customer Count = DISTINCTCOUNT( Customers[Customer Id] )
+
+Profit Margin = DIVIDE( [Total Profit], [Total Sales], 0 )
+
+Average Sales per Order = DIVIDE( [Total Sales], [Order Count], 0 )
+
+Average Profit per Order = DIVIDE( [Total Profit], [Order Count], 0 )
+
+%Orders with Discount = DIVIDE( CALCULATE( COUNTROWS( Orders ), Orders[Discount] > 0 ), COUNTROWS( Orders ), 0 )
+
+Sales MTD = TOTALMTD( [Total Sales], Orders[Order Date] )
+
+Sales YTD = TOTALYTD( [Total Sales], Orders[Order Date] )
+
+Profit YTD = TOTALYTD( [Total Profit], Orders[Order Date] )
+
+First Order Date = CALCULATE( MIN( Orders[Order Date] ), FILTER( Orders, Orders[Customer ID] = Customers[Customer Id] ) )
+
+New Customers = 
+CALCULATE( DISTINCTCOUNT( Customers[Customer Id] ), FILTER( Customers, Customers[First Order Date] >= STARTOFMONTH( Orders[Order Date] ) && Customers[First Order Date] <= ENDOFMONTH( Orders[Order Date] ) ) )
+
+Calendar = CALENDAR( MIN( Orders[Order Date] ), MAX( Orders[Order Date] ) )
+
+Calendar[Year] = YEAR( Calendar[Date] )
+Calendar[Month] = FORMAT( Calendar[Date], "MMMM" )
+Calendar[MonthYear] = FORMAT( Calendar[Date], "YYYY-MM" )
+
+Loss Orders = CALCULATE( COUNTROWS( Orders ), Orders[Profit] < 0 )
+
+Profit by State = CALCULATE( [Total Profit], ALLEXCEPT( States, States[State] ) )
+
+Avg Discount by Category = AVERAGEX( VALUES( Products[Category] ), CALCULATE( AVERAGE( Orders[Discount] ) ) )
